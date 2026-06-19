@@ -1,0 +1,504 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG Security | GPG Anti-Cheat</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#03030a;
+color:white;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%,#00d9ff22,transparent 25%),
+radial-gradient(circle at 80% 40%,#8f3dff22,transparent 25%),
+radial-gradient(circle at 50% 90%,#ff00aa22,transparent 25%);
+animation:bg 12s infinite alternate;
+z-index:-2;
+}
+
+@keyframes bg{
+from{filter:hue-rotate(0deg);}
+to{filter:hue-rotate(60deg);}
+}
+
+header{
+position:fixed;
+width:100%;
+top:0;
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(10px);
+z-index:100;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:50px;
+}
+
+.logo span{
+font-size:1.3rem;
+font-weight:800;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:120px 30px;
+}
+
+.hero-content{
+max-width:1200px;
+width:100%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center;
+}
+
+.hero h1{
+font-size:4rem;
+margin-bottom:20px;
+}
+
+.gradient{
+background:linear-gradient(90deg,#00d9ff,#8f3dff,#ff00aa);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+color:#ccc;
+font-size:1.1rem;
+line-height:1.8;
+}
+
+.hero img{
+width:420px;
+max-width:100%;
+animation:float 4s ease-in-out infinite;
+filter:
+drop-shadow(0 0 20px #00d9ff)
+drop-shadow(0 0 50px #8f3dff);
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+.btn{
+display:inline-block;
+margin-top:25px;
+padding:14px 30px;
+background:linear-gradient(90deg,#00d9ff,#8f3dff);
+border-radius:999px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+section{
+padding:100px 30px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.title{
+font-size:3rem;
+text-align:center;
+margin-bottom:15px;
+}
+
+.subtitle{
+text-align:center;
+color:#aaa;
+margin-bottom:50px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.stat{
+background:#0d1020;
+padding:30px;
+border-radius:20px;
+text-align:center;
+}
+
+.stat h2{
+font-size:3rem;
+color:#ffd76a;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.card{
+background:#0d1020;
+padding:30px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 20px #00d9ff55;
+}
+
+.card h3{
+color:#00d9ff;
+margin-bottom:15px;
+}
+
+.gpg{
+text-align:center;
+margin-bottom:50px;
+}
+
+.gpg img{
+width:300px;
+max-width:90%;
+animation:float 5s ease-in-out infinite;
+}
+
+.monitor{
+background:#050813;
+padding:20px;
+border-radius:20px;
+height:350px;
+overflow:hidden;
+border:1px solid #00d9ff55;
+}
+
+.log{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.entry{
+padding:12px;
+border-radius:10px;
+font-family:monospace;
+}
+
+.detected{
+background:#ffaa0022;
+color:#ffbb44;
+}
+
+.blocked{
+background:#00d9ff22;
+color:#00d9ff;
+}
+
+.banned{
+background:#ff003322;
+color:#ff5577;
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:#888;
+}
+
+@media(max-width:900px){
+.hero-content{
+grid-template-columns:1fr;
+text-align:center;
+}
+.hero h1{
+font-size:2.5rem;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+
+<div class="logo">
+<img src="gg.png">
+<span>GG Security</span>
+</div>
+
+<div>
+<a href="#about">회사소개</a>
+<a href="#gpg">GPG</a>
+<a href="#monitor">탐지현황</a>
+</div>
+
+</nav>
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div>
+
+<h1>
+Protecting<br>
+<span class="gradient">
+Competitive Gaming
+</span>
+</h1>
+
+<p>
+GG Security는 공정한 경쟁 환경을 위한
+차세대 안티치트 기술 기업입니다.
+GPG(Game Protection Guard)는
+실시간 치트 탐지, 행동 분석,
+커널 수준 보호를 제공합니다.
+</p>
+
+<a class="btn" href="#gpg">
+Explore GPG
+</a>
+
+</div>
+
+<div>
+<img src="gg.png">
+</div>
+
+</div>
+
+</section>
+
+<section id="about">
+
+<div class="container">
+
+<h2 class="title">
+GG Security
+</h2>
+
+<p class="subtitle">
+Next Generation Anti-Cheat Company
+</p>
+
+<div class="stats">
+
+<div class="stat">
+<h2>99.9%</h2>
+<p>탐지 정확도</p>
+</div>
+
+<div class="stat">
+<h2>24/7</h2>
+<p>실시간 모니터링</p>
+</div>
+
+<div class="stat">
+<h2>1ms</h2>
+<p>위협 분석 속도</p>
+</div>
+
+<div class="stat">
+<h2>100M+</h2>
+<p>보호된 게임 세션</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="gpg">
+
+<div class="container">
+
+<h2 class="title">
+GPG
+</h2>
+
+<p class="subtitle">
+Game Protection Guard
+</p>
+
+<div class="gpg">
+<img src="gpg.png">
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Kernel Defense</h3>
+<p>운영체제 수준에서 치트 접근을 차단합니다.</p>
+</div>
+
+<div class="card">
+<h3>Behavior AI</h3>
+<p>비정상적인 플레이 패턴을 탐지합니다.</p>
+</div>
+
+<div class="card">
+<h3>Instant Ban</h3>
+<p>확인된 위협에 즉시 제재를 적용합니다.</p>
+</div>
+
+<div class="card">
+<h3>Cloud Intelligence</h3>
+<p>전 세계 탐지 데이터를 실시간 공유합니다.</p>
+</div>
+
+<div class="card">
+<h3>Aimbot Detection</h3>
+<p>자동 조준 패턴을 분석하여 탐지합니다.</p>
+</div>
+
+<div class="card">
+<h3>Wallhack Protection</h3>
+<p>비정상적인 시야 정보 접근을 차단합니다.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="monitor">
+
+<div class="container">
+
+<h2 class="title">
+LIVE THREAT MONITOR
+</h2>
+
+<p class="subtitle">
+Global Detection Network
+</p>
+
+<div class="monitor">
+
+<div class="log" id="logBox">
+
+<div class="entry detected">
+[DETECTED] AIMBOT SIGNATURE
+</div>
+
+<div class="entry blocked">
+[BLOCKED] WALLHACK PROCESS
+</div>
+
+<div class="entry banned">
+[BANNED] ACCOUNT FLAGGED
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 GG Security | Powered by GPG
+</footer>
+
+<script>
+
+const messages=[
+"[DETECTED] AIMBOT SIGNATURE",
+"[DETECTED] MEMORY MODIFICATION",
+"[DETECTED] WALLHACK MODULE",
+"[BLOCKED] CHEAT PROCESS TERMINATED",
+"[BLOCKED] DRIVER ACCESS DENIED",
+"[BANNED] ACCOUNT FLAGGED",
+"[BANNED] PERMANENT BAN ISSUED"
+];
+
+const box=document.getElementById("logBox");
+
+setInterval(()=>{
+
+const div=document.createElement("div");
+
+const text=
+messages[Math.floor(Math.random()*messages.length)];
+
+div.className="entry";
+
+if(text.includes("DETECTED"))
+div.classList.add("detected");
+
+if(text.includes("BLOCKED"))
+div.classList.add("blocked");
+
+if(text.includes("BANNED"))
+div.classList.add("banned");
+
+div.textContent=text;
+
+box.prepend(div);
+
+if(box.children.length>15){
+box.removeChild(box.lastChild);
+}
+
+},1500);
+
+</script>
+
+</body>
+</html>
+```
